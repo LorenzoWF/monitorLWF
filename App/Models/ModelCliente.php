@@ -4,7 +4,7 @@ namespace App\Models;
 
 use src\ServiceDB\ConnectDB;
 
-class ModelEmpresa
+class ModelCliente
 {
     public function __construct()
     {
@@ -12,18 +12,15 @@ class ModelEmpresa
         $this->conn = $conn->getConn();
     }
 
-    public function selecionarEmpresa($id_cliente)
+    public function clientesFull()
     {
         try{
 
-            $stmt = $this->conn->prepare("SELECT nome FROM cliente WHERE id_cliente = (:id_cliente);");
-            $stmt->bindValue(":id_cliente", $id_cliente)
-            return $stmt->fetch(\PDO::FETCH_ASSOC);
+            $stmt = $this->conn->query("SELECT * FROM clientes");
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         } catch(Exception $e){
             echo "Erro, as informacoes nao puderam ser enviadas\n".$e->getMessage();
         }
     }
-
-
 }

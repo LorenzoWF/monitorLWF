@@ -7,11 +7,18 @@ use App\Models\ModelDisco;
 
 class Discos extends Render
 {
-    public function mostraDiscos()
+    public function getDiscos()
     {
         $discos = new ModelDisco();
-        $this->view->listaDiscos = $discos->discosFullClienteNome();
+        $listaDiscos = $discos->discosFullClienteNome();
 
+        header('Content-Type: application/json');
+        $json = json_encode($listaDiscos);
+        echo $json;
+    }
+
+    public function mostraDiscos()
+    {
         $this->render('mostraDiscos');
     }
 

@@ -1,13 +1,13 @@
 stdClass Object
 (
-    [total] => 906
-    [particao] => /
-    [local] => /dev/sda6
-    [disponivel] => 853
-    [porcentagem] => 1
+    [idCliente] => 2
     [usado] => 75
+    [porcentagem] => 1
+    [horario] => 16:15:07
+    [disponivel] => 853
+    [local] => /dev/sda6
+    [total] => 906
     [data] => 2016-04-14
-    [idCliente] => 1
-    [horario] => 13:15:51
+    [particao] => /
 )
 As informaçoes foram gravadas com sucesso
