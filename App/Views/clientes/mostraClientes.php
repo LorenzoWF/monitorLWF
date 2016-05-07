@@ -1,7 +1,8 @@
 <div  class="col-md-5">
   <div ng-controller="CtrlLista">
 
-    <h3>Busca: </h3> <input type="search" name="busca" class="form-control" ng-model="busca">
+    <i class="fa fa-filter" aria-hidden="true" style="font-size: 20px;"></i>
+    <input type="search" name="busca" class="form-control" ng-model="busca">
 
     <table class="table">
       <tr>

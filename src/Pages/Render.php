@@ -13,13 +13,17 @@ abstract class Render
         $this->view = new \stdClass();
     }
 
-    public function render($action, $layout = true)
+    public function render($action, $layout = true, $plugins = true)
     {
         $this->action = $action;
         if ($layout == true && file_exists("../App/Views/layout.php")){
             include_once '../App/Views/layout.php';
         } else{
-            $this->content();
+            if ($plugins == true){
+              include_once '../App/Views/plugins.php';
+            } else {
+              $this->content();
+            }
         }
     }
 

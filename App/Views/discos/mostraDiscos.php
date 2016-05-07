@@ -5,9 +5,9 @@
       <th>Cliente</th>
       <th>Local</th>
       <th>Particao</th>
-      <th>Total</th>
-      <th>Usado</th>
-      <th>Disponivel</th>
+      <th>Total (GB)</th>
+      <th>Usado (GB)</th>
+      <th>Disponivel (GB)</th>
       <th>Porcentagem de uso</th>
       <th>Data da comunicacao</th>
       <th>Horario da comunicacao</th>

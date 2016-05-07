@@ -16,6 +16,8 @@ class Init
     {
         //PAGINAS DE ACESSO
         $this->routes['home'] = array('route' => '/', 'controller' => 'index', 'action' => 'index');
+        $this->routes['login'] = array('route' => '/login', 'controller' => 'index', 'action' => 'login');
+        $this->routes['logout'] = array('route' => '/logout', 'controller' => 'index', 'action' => 'logout');
         $this->routes['discos'] = array('route' => '/discos', 'controller' => 'discos', 'action' => 'mostraDiscos');
         $this->routes['clientes'] = array('route' => '/clientes', 'controller' => 'clientes', 'action' => 'mostraClientes');
 

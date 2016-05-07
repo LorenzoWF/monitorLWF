@@ -16,6 +16,14 @@ $conn->query("CREATE TABLE clientes(
                 PRIMARY KEY (id_cliente)
               );");
 
+$conn->query("CREATE TABLE usuarios(
+                id_usuario serial,
+                login VARCHAR(25),
+                email VARCHAR(25),
+                senha VARCHAR(32),
+                PRIMARY KEY (id_usuario)
+              );");
+
 $conn->query("CREATE TABLE discos(
                 id_disco serial,
                 id_cliente int NOT NULL,
