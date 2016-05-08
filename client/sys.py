@@ -9,11 +9,12 @@ import time
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-idCliente = config['CLIENTE']['id']
+idCliente = config['CLIENTE']['id_cliente']
+idServidor = config['CLIENTE']['id_servidor']
 
+#FUNCOES AUXLIARES
 def get_num(x):
     return int(''.join(ele for ele in x if ele.isdigit()))
-
 
 def enviar(data):
 
@@ -32,6 +33,11 @@ def enviar(data):
     logResponse.write(resultado)
 
     conn.close()
+
+#FAZER ESSA FUNCAO, ELA VAI MANDAR TODOS OS DADOS def atualizaDados():
+#FAZER ESSA FUNCAO def processador():
+#FAZER ESSA FUNCAO def memoria():
+
 
 def disco(localDisco):
 
@@ -53,7 +59,9 @@ def disco(localDisco):
 
     arquivo.close()
 
-    dadosDisco = { "idCliente" : idCliente,
+    dadosDisco = { "acao" : 1,
+                   "idCliente" : idCliente,
+                   "idServidor" : idServidor,
                    "local" : local,
                    "total" : get_num(total),
                    "usado" : get_num(usado),
@@ -65,15 +73,18 @@ def disco(localDisco):
 
     enviar(dadosDisco)
 
-def main():
+def main(argv):
+
+    argumento = sys.argv[1]
 
     if sys.platform == 'win32':
       print("TESTE")
     elif sys.platform == 'darwin':
       print("TESTE")
     elif 'linux' in sys.platform:
-        localDisco = config['DISCOS']['local']
-        disco(localDisco)
+        if argumento == 'discos':
+            localDisco = config['DISCOS']['local']
+            disco(localDisco)
 
 
-if __name__ == '__main__': main()
+if __name__ == '__main__': main(sys.argv[1:])
