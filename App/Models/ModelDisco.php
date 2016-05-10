@@ -18,7 +18,7 @@ class ModelDisco
     {
         try{
 
-            $stmt = $this->conn->query("select * from mostradiscos;");
+            $stmt = $this->conn->query("SELECT * FROM mostradiscos;");
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         } catch(Exception $e){

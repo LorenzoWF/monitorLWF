@@ -82,7 +82,7 @@ $conn->query("CREATE TRIGGER clienteDiscos
               );
 
 $conn->query("CREATE VIEW mostraDiscos AS (
-              SELECT estDiscos.*, servidores.descricao, clientes.nome FROM estDiscos, servidores INNER JOIN clientes ON servidores.id_cliente = clientes.id_cliente);"
+              SELECT estDiscos.*, servidores.descricao, clientes.nome FROM estDiscos INNER JOIN servidores ON estDiscos.id_servidor = servidores.id_servidor INNER JOIN clientes ON servidores.id_cliente = clientes.id_cliente);"
              );
 
 ?>
