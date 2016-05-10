@@ -17,38 +17,9 @@ class Json
         $cliente = $model->verificaClienteServidor($data);
 
         if ($cliente == 1){
-
-          switch ($data->acao) {
-            case 0:
-              # code...
-              break;
-
-            case 1:
-              $disco = $model->verificaDisco($data);
-              if ($disco == True){
-                $model->salvaDisco($data);
-              } else {
-                echo "O Disco já está cadastrado";
-              }
-
-              break;
-
-            case 2:
-              $disco = $model->verificaDisco($data);
-              if ($disco == False){
-                $model->salvaLogDisco($data, $disco);
-              } else {
-                echo "O Disco nao está cadastrado ".$disco;
-              }
-              break;
-
-            default:
-              # code...
-              break;
-          }
-
+          $model->insertLogDisco($data);
         } else {
-          echo "ERRO: Cliente nao cadastrado";
+          echo "ERRO 01: as informacoes do servidor ou do cliente nao foram aprovadas !\n";
         }
     }
 

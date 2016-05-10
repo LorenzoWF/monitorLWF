@@ -38,31 +38,8 @@ def enviar(data):
 #FAZER ESSA FUNCAO def processador():
 #FAZER ESSA FUNCAO def memoria():
 
-def cadastraDiscos(localDisco):
 
-    os.system('df -h > logs/disco.txt')
-
-    arquivo = open('logs/disco.txt')
-
-    for linha in arquivo:
-        valores = linha.split()
-
-        if valores[0] == localDisco:
-            local = valores[0]
-            particao = valores[5]
-            break;
-
-    arquivo.close()
-
-    dadosDisco = { "acao" : 1,
-                   "idCliente" : idCliente,
-                   "idServidor" : idServidor,
-                   "local" : local,
-                   "particao" : particao}
-
-    enviar(dadosDisco)
-
-def estDiscos(localDisco):
+def disco(localDisco, idLocal):
 
     os.system('df -h > logs/disco.txt')
 
@@ -77,18 +54,21 @@ def estDiscos(localDisco):
             usado = valores[2]
             disponivel = valores[3]
             porcentagem = valores[4]
+            particao = valores[5]
             break;
 
     arquivo.close()
 
-    dadosDisco = { "acao" : 2,
+    dadosDisco = { "acao" : 1,
                    "idCliente" : idCliente,
                    "idServidor" : idServidor,
-                   "local" : get_num(total),
+                   "idLocal" : idLocal[5:6],
+                   "local" : local,
                    "total" : get_num(total),
                    "usado" : get_num(usado),
                    "disponivel" : get_num(disponivel),
                    "porcentagem" : get_num(porcentagem),
+                   "particao" : particao,
                    "data" : time.strftime("%Y-%m-%d"),
                    "horario" : time.strftime("%H:%M:%S")}
 
@@ -103,12 +83,12 @@ def main(argv):
     elif sys.platform == 'darwin':
       print("TESTE")
     elif 'linux' in sys.platform:
-        if argumento == 'estDiscos':
-            localDisco = config['DISCOS']['local']
-            estDiscos(localDisco)
-        elif argumento == 'cadastraDiscos':
-            localDisco = config['DISCOS']['local']
-            cadastraDiscos(localDisco)
+
+        if argumento == 'discos':
+
+            for n in config['DISCOS']:
+                localDisco = config['DISCOS'][n]
+                disco(localDisco, n)
 
 
 if __name__ == '__main__': main(sys.argv[1:])

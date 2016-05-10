@@ -1,8 +1,8 @@
 Sist. Arq.      Tam. Usado Disp. Uso% Montado em
-udev            1,9G  4,0K  1,9G   1% /dev
+udev            1,9G   12K  1,9G   1% /dev
 tmpfs           388M  1,6M  386M   1% /run
-/dev/sda6       906G  9,8G  850G   2% /
+/dev/sda6       906G   11G  850G   2% /
 none            4,0K     0  4,0K   0% /sys/fs/cgroup
 none            5,0M     0  5,0M   0% /run/lock
-none            1,9G   91M  1,9G   5% /run/shm
-none            100M   32K  100M   1% /run/user
+none            1,9G   60M  1,9G   4% /run/shm
+none            100M   44K  100M   1% /run/user

@@ -26,7 +26,7 @@ class ModelDisco
         }
     }
 
-    public function discosFullServidor()
+    public function discosFullClienteNome()
     {
         try{
 

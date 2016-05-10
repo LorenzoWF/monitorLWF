@@ -1,9 +1,16 @@
 stdClass Object
 (
+    [total] => 388
     [acao] => 1
-    [particao] => /
-    [idServidor] => 1
-    [local] => /dev/sda6
+    [disponivel] => 386
+    [particao] => /run
     [idCliente] => 1
+    [data] => 2016-05-10
+    [usado] => 16
+    [idLocal] => 1
+    [local] => tmpfs
+    [horario] => 00:55:05
+    [porcentagem] => 1
+    [idServidor] => 3
 )
-ACAO: 1, As informaçoes foram gravadas com sucesso
+As informaçoes foram gravadas com sucesso
