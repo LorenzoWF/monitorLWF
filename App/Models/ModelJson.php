@@ -40,8 +40,9 @@ class ModelJson
     {
         try{
 
-            $stmt = $this->conn->prepare("INSERT INTO logDiscos (id_servidor, id_local, local, particao, total, usado, disponivel, porcentagem, data, horario) VALUES (:id_servidor, :id_local, :local, :particao, :total, :usado, :disponivel, :porcentagem, :data, :horario);");
+            $stmt = $this->conn->prepare("INSERT INTO logDiscos (id_servidor, id_cliente, id_local, local, particao, total, usado, disponivel, porcentagem, data, horario) VALUES (:id_servidor, :id_cliente, :id_local, :local, :particao, :total, :usado, :disponivel, :porcentagem, :data, :horario);");
             $stmt->bindValue(":id_servidor", $o->idServidor);
+            $stmt->bindValue(":id_cliente", $o->idCliente);
             $stmt->bindValue(":id_local", $o->idLocal);
             $stmt->bindValue(":local", $o->local);
             $stmt->bindValue(":particao", $o->particao);

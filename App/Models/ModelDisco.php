@@ -26,11 +26,11 @@ class ModelDisco
         }
     }
 
-    public function discosFullClienteNome()
+    public function estDiscosFullClienteServidor()
     {
         try{
 
-            $stmt = $this->conn->query("SELECT discos.*, clientes.nome FROM discos INNER JOIN clientes ON discos.id_cliente = clientes.id_cliente;");
+            $stmt = $this->conn->query("SELECT estDiscos.*, Servidor.nome FROM discos INNER JOIN clientes ON discos.id_cliente = clientes.id_cliente;");
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         } catch(Exception $e){

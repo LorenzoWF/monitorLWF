@@ -4,5 +4,5 @@ tmpfs           388M  1,6M  386M   1% /run
 /dev/sda6       906G   11G  850G   2% /
 none            4,0K     0  4,0K   0% /sys/fs/cgroup
 none            5,0M     0  5,0M   0% /run/lock
-none            1,9G   60M  1,9G   4% /run/shm
+none            1,9G  110M  1,8G   6% /run/shm
 none            100M   44K  100M   1% /run/user

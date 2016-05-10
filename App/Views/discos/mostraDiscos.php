@@ -3,6 +3,7 @@
   <table class="table">
     <tr>
       <th>Cliente</th>
+      <th>Servidor</th>
       <th>Local</th>
       <th>Particao</th>
       <th>Total (GB)</th>
@@ -14,6 +15,7 @@
     </tr>
     <tr ng-repeat="disco in discos">
       <td>{{disco.nome}}</td>
+      <td>{{disco.descricao}}</td>
       <td>{{disco.local}}</td>
       <td>{{disco.particao}}</td>
       <td>{{disco.total}}</td>
