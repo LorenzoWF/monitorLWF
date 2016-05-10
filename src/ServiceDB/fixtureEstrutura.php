@@ -39,7 +39,6 @@ $conn->query("CREATE TABLE servidores(
 $conn->query("CREATE TABLE estDiscos(
                 id_disco serial,
                 id_servidor int NOT NULL,
-                id_cliente int NOT NULL,
                 id_local int NOT NULL,
                 local VARCHAR(15) NOT NULL,
                 particao VARCHAR(15) NOT NULL,
@@ -50,14 +49,12 @@ $conn->query("CREATE TABLE estDiscos(
                 data date NOT NULL,
                 horario time NOT NULL,
                 PRIMARY KEY (id_disco),
-                FOREIGN KEY (id_cliente) REFERENCES clientes (id_cliente),
                 FOREIGN KEY (id_servidor) REFERENCES servidores (id_servidor)
               );");
 
 $conn->query("CREATE TABLE logDiscos(
                 id_disco serial,
                 id_servidor int NOT NULL,
-                id_cliente int NOT NULL,
                 id_local int NOT NULL,
                 local VARCHAR(15) NOT NULL,
                 particao VARCHAR(15) NOT NULL,
@@ -68,14 +65,13 @@ $conn->query("CREATE TABLE logDiscos(
                 data date NOT NULL,
                 horario time NOT NULL,
                 PRIMARY KEY (id_disco),
-                FOREIGN KEY (id_cliente) REFERENCES clientes (id_cliente),
                 FOREIGN KEY (id_servidor) REFERENCES servidores (id_servidor)
               );");
 
 $conn->query("CREATE OR REPLACE FUNCTION atualizacaoDiscos() RETURNS trigger AS $$
               BEGIN
                 DELETE FROM estDiscos WHERE id_servidor = new.id_servidor AND id_local = new.id_local;
-                INSERT INTO estDiscos (id_servidor, id_cliente, id_local, local, particao, total, usado, disponivel, porcentagem, data, horario) VALUES (new.id_servidor, new.id_cliente, new.id_local, new.local, new.particao, new.total, new.usado, new.disponivel, new.porcentagem, new.data, new.horario);
+                INSERT INTO estDiscos (id_servidor, id_local, local, particao, total, usado, disponivel, porcentagem, data, horario) VALUES (new.id_servidor, new.id_local, new.local, new.particao, new.total, new.usado, new.disponivel, new.porcentagem, new.data, new.horario);
                 RETURN NEW;
               END;
               $$ LANGUAGE plpgsql;");
@@ -86,9 +82,7 @@ $conn->query("CREATE TRIGGER clienteDiscos
               );
 
 $conn->query("CREATE VIEW mostraDiscos AS (
-              SELECT estDiscos.*, servidores.descricao, clientes.nome FROM estDiscos
-              INNER JOIN servidores ON estDiscos.id_servidor = servidores.id_servidor
-              INNER JOIN clientes ON estDiscos.id_cliente = clientes.id_cliente );"
-              );
+              SELECT estDiscos.*, servidores.descricao, clientes.nome FROM estDiscos, servidores INNER JOIN clientes ON servidores.id_cliente = clientes.id_cliente);"
+             );
 
 ?>

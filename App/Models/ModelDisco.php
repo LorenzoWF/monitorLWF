@@ -18,7 +18,7 @@ class ModelDisco
     {
         try{
 
-            $stmt = $this->conn->query("SELECT id_disco, id_servidor, id_cliente, id_local, local, particao, total, usado, disponivel, porcentagem, data, horario, descricao, nome FROM mostradiscos;");
+            $stmt = $this->conn->query("select * from mostradiscos;");
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         } catch(Exception $e){
