@@ -11,6 +11,7 @@ $conn->query("DROP TABLE IF EXISTS logDiscos;");
 $conn->query("DROP TABLE IF EXISTS servidores;");
 $conn->query("DROP TABLE IF EXISTS clientes;");
 $conn->query("DROP FUNCTION IF EXISTS atualizacaoDiscos();");
+$conn->query("DROP VIEW IF EXISTS mostraDiscos;");
 
 $conn->query("CREATE TABLE usuarios(
                 id_usuario serial,
@@ -82,6 +83,12 @@ $conn->query("CREATE OR REPLACE FUNCTION atualizacaoDiscos() RETURNS trigger AS 
 $conn->query("CREATE TRIGGER clienteDiscos
                 BEFORE INSERT ON logDiscos
                 FOR EACH ROW EXECUTE PROCEDURE atualizacaoDiscos();"
+              );
+
+$conn->query("CREATE VIEW mostraDiscos AS (
+              SELECT estDiscos.*, servidores.descricao, clientes.nome FROM estDiscos
+              INNER JOIN servidores ON estDiscos.id_servidor = servidores.id_servidor
+              INNER JOIN clientes ON estDiscos.id_cliente = clientes.id_cliente );"
               );
 
 ?>

@@ -14,23 +14,11 @@ class ModelDisco
         $this->conn = $conn->getConn();
     }
 
-    public function logDiscosFullClienteNome()
-    {
-        try{
-
-            $stmt = $this->conn->query("SELECT logDiscos.*, clientes.nome FROM logDiscos INNER JOIN clientes ON logDiscos.id_cliente = clientes.id_cliente;");
-            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-        } catch(Exception $e){
-            echo "Erro, as informacoes nao puderam ser enviadas\n".$e->getMessage();
-        }
-    }
-
     public function estDiscosFullClienteServidor()
     {
         try{
 
-            $stmt = $this->conn->query("SELECT estDiscos.*, Servidor.nome FROM discos INNER JOIN clientes ON discos.id_cliente = clientes.id_cliente;");
+            $stmt = $this->conn->query("SELECT id_disco, id_servidor, id_cliente, id_local, local, particao, total, usado, disponivel, porcentagem, data, horario, descricao, nome FROM mostradiscos;");
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         } catch(Exception $e){
