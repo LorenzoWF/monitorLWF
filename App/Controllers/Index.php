@@ -9,7 +9,7 @@ class Index extends Render
 {
     public function index()
     {
-      $this->render('index');
+      $this->render('index', 2);
     }
 
     public function login()

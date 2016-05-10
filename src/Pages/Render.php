@@ -13,11 +13,30 @@ abstract class Render
         $this->view = new \stdClass();
     }
 
-    public function render($action, $layout = true, $plugins = true)
+    public function render($action, $layout = 1, $plugins = true)
     {
         $this->action = $action;
-        if ($layout == true && file_exists("../App/Views/layout.php")){
-            include_once '../App/Views/layout.php';
+        if ($layout > 0){
+            switch ($layout) {
+              case 2:
+                //if file_exists("../App/Views/layout_2.php") ? include_once '../App/Views/layout_2.php' : echo "NAO FOI POSSIVEL CARREGAR O LAYOUT 2";
+                if (file_exists("../App/Views/layout_2.php")){
+                  include_once '../App/Views/layout_2.php';
+                } else {
+                   echo "NAO FOI POSSIVEL CARREGAR O LAYOUT 2";
+                }
+                break;
+
+              default:
+                //if file_exists("../App/Views/layout.php") == True ? include_once '../App/Views/layout.php' : echo "NAO FOI POSSIVEL CARREGAR O LAYOUT";
+                if (file_exists("../App/Views/layout.php")){
+                  include_once '../App/Views/layout.php';
+                } else {
+                   echo "NAO FOI POSSIVEL CARREGAR O LAYOUT PRINCIPAL";
+                }
+                break;
+            }
+
         } else{
             if ($plugins == true){
               include_once '../App/Views/plugins.php';
