@@ -14,7 +14,7 @@ class ModelJson
       $this->conn = $conexao->getConn();
     }
 
-    public function verificaCliente($o)
+    public function verificaClienteServidor($o)
     {
         try {
 
@@ -31,26 +31,59 @@ class ModelJson
             return False;
 
         } catch (Exception $e) {
-            echo "ERRO: nao foi possivel consultar as informações do cliente!\n".$e->getMessage();
+            echo "ERRO: nao foi possivel consultar as informações do cliente ou do Servidor!\n".$e->getMessage();
         }
     }
 
-    public function atualizaDados()
+    public function verificaDisco($o)
     {
+        try{
 
+            $stmt = $this->conn->prepare("SELECT id_disco FROM discos WHERE id_servidor = (:id_servidor) AND local = (:local);");
+            $stmt->bindValue(":id_servidor", $o->idServidor);
+            $stmt->bindValue(":local", $o->local);
+            $stmt->execute();
+            $row = $stmt->rowCount();
+
+            if ($row == 0) {
+                return True;
+            }
+
+            return $stmt->fetch();
+
+        } catch(Exception $e){
+            echo "ACAO: ".$o->acao."ERRO: as informacoes nao puderam ser enviadas\n".$e->getMessage();
+        }
     }
 
     public function salvaDisco($o)
     {
         try{
 
-            $stmt = $this->conn->prepare("INSERT INTO logDiscos (id_servidor, local, particao, total, usado, disponivel, porcentagem, data, horario) VALUES (:id_servidor, :local, :particao, :total, :usado, :disponivel, :porcentagem, :data, :horario);");
+            $stmt = $this->conn->prepare("INSERT INTO discos (id_servidor, local, particao) VALUES (:id_servidor, :local, :particao);");
             $stmt->bindValue(":id_servidor", $o->idServidor);
             $stmt->bindValue(":local", $o->local);
             $stmt->bindValue(":particao", $o->particao);
+            $stmt->execute();
+
+            print_r($o);
+
+            echo "ACAO: ".$o->acao.", As informaçoes foram gravadas com sucesso";
+
+        } catch(Exception $e){
+            echo "ACAO: ".$o->acao."ERRO: as informacoes nao puderam ser enviadas\n".$e->getMessage();
+        }
+
+    }
+
+    public function salvaLogDisco($o, $idDisco)
+    {
+        try{
+
+            $stmt = $this->conn->prepare("INSERT INTO logDiscos (id_disco, total, usado, porcentagem, data, horario) VALUES (:id_disco, :total, :usado, :porcentagem, :data, :horario);");
+            $stmt->bindValue(":id_disco", $idDisco);
             $stmt->bindValue(":total", $o->total);
             $stmt->bindValue(":usado", $o->usado);
-            $stmt->bindValue(":disponivel", $o->disponivel);
             $stmt->bindValue(":porcentagem", $o->porcentagem);
             $stmt->bindValue(":data", $o->data);
             $stmt->bindValue(":horario", $o->horario);
@@ -63,6 +96,5 @@ class ModelJson
         } catch(Exception $e){
             echo "ACAO: ".$o->acao."ERRO: as informacoes nao puderam ser enviadas\n".$e->getMessage();
         }
-
     }
 }

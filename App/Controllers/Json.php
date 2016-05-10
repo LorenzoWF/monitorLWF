@@ -14,7 +14,7 @@ class Json
 
         $model = new ModelJson();
 
-        $cliente = $model->verificaCliente($data);
+        $cliente = $model->verificaClienteServidor($data);
 
         if ($cliente == 1){
 
@@ -24,7 +24,22 @@ class Json
               break;
 
             case 1:
-              $model->salvaDisco($data);
+              $disco = $model->verificaDisco($data);
+              if ($disco == True){
+                $model->salvaDisco($data);
+              } else {
+                echo "O Disco já está cadastrado";
+              }
+
+              break;
+
+            case 2:
+              $disco = $model->verificaDisco($data);
+              if ($disco == False){
+                $model->salvaLogDisco($data, $disco);
+              } else {
+                echo "O Disco nao está cadastrado ".$disco;
+              }
               break;
 
             default:

@@ -10,7 +10,7 @@ class Discos extends Render
     public function getDiscos()
     {
         $discos = new ModelDisco();
-        $listaDiscos = $discos->discosFullClienteNome();
+        $listaDiscos = $discos->discosFullServidor();
 
         header('Content-Type: application/json');
         $json = json_encode($listaDiscos);

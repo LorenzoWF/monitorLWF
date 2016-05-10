@@ -38,8 +38,31 @@ def enviar(data):
 #FAZER ESSA FUNCAO def processador():
 #FAZER ESSA FUNCAO def memoria():
 
+def cadastraDiscos(localDisco):
 
-def disco(localDisco):
+    os.system('df -h > logs/disco.txt')
+
+    arquivo = open('logs/disco.txt')
+
+    for linha in arquivo:
+        valores = linha.split()
+
+        if valores[0] == localDisco:
+            local = valores[0]
+            particao = valores[5]
+            break;
+
+    arquivo.close()
+
+    dadosDisco = { "acao" : 1,
+                   "idCliente" : idCliente,
+                   "idServidor" : idServidor,
+                   "local" : local,
+                   "particao" : particao}
+
+    enviar(dadosDisco)
+
+def estDiscos(localDisco):
 
     os.system('df -h > logs/disco.txt')
 
@@ -54,20 +77,18 @@ def disco(localDisco):
             usado = valores[2]
             disponivel = valores[3]
             porcentagem = valores[4]
-            particao = valores[5]
             break;
 
     arquivo.close()
 
-    dadosDisco = { "acao" : 1,
+    dadosDisco = { "acao" : 2,
                    "idCliente" : idCliente,
                    "idServidor" : idServidor,
-                   "local" : local,
+                   "local" : get_num(total),
                    "total" : get_num(total),
                    "usado" : get_num(usado),
                    "disponivel" : get_num(disponivel),
                    "porcentagem" : get_num(porcentagem),
-                   "particao" : particao,
                    "data" : time.strftime("%Y-%m-%d"),
                    "horario" : time.strftime("%H:%M:%S")}
 
@@ -82,9 +103,12 @@ def main(argv):
     elif sys.platform == 'darwin':
       print("TESTE")
     elif 'linux' in sys.platform:
-        if argumento == 'discos':
+        if argumento == 'estDiscos':
             localDisco = config['DISCOS']['local']
-            disco(localDisco)
+            estDiscos(localDisco)
+        elif argumento == 'cadastraDiscos':
+            localDisco = config['DISCOS']['local']
+            cadastraDiscos(localDisco)
 
 
 if __name__ == '__main__': main(sys.argv[1:])

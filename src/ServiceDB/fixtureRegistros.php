@@ -14,7 +14,13 @@ $conn->query("INSERT INTO clientes (nome) VALUES ('Solution');");
 $conn->query("INSERT INTO servidores (id_cliente, so, descricao_so) VALUES (1, 1, 'Notebook Ubuntu');");
 $conn->query("INSERT INTO servidores (id_cliente, so, descricao_so) VALUES (2, 0, 'Desktop');");
 
-$conn->query("INSERT INTO logDiscos (id_servidor, local, particao, total, usado, disponivel, porcentagem, data, horario) VALUES (1, '/', '/dev/sda6', 900, 50, 850, 7, '2016-04-16', '08:45:00');");
-$conn->query("INSERT INTO logDiscos (id_servidor, local, particao, total, usado, disponivel, porcentagem, data, horario) VALUES (2, 'c:/', 'c:/', 900, 50, 850, 7, '2016-04-16', '08:45:00');");
+/*$conn->query("INSERT INTO discos (id_servidor, local, particao) VALUES (1, '/', '/dev/sda6');");
+$conn->query("INSERT INTO discos (id_servidor, local, particao) VALUES (1, '/dev', '/udev');");
+$conn->query("INSERT INTO discos (id_servidor, local, particao) VALUES (2, 'c:/', 'c:/');");
+
+$conn->query("INSERT INTO logDiscos (id_disco, total, usado, disponivel, porcentagem, data, horario) VALUES (1, 900, 50, 850, 7, '2016-04-16', '08:45:00');");
+$conn->query("INSERT INTO logDiscos (id_disco, total, usado, disponivel, porcentagem, data, horario) VALUES (1, 900, 51, 849, 7, '2016-04-16', '09:45:01');");
+$conn->query("INSERT INTO logDiscos (id_disco, total, usado, disponivel, porcentagem, data, horario) VALUES (2, 2, 0, 2, 1, '2016-04-16', '08:45:00');");
+$conn->query("INSERT INTO logDiscos (id_disco, total, usado, disponivel, porcentagem, data, horario) VALUES (3, 900, 50, 850, 7, '2016-04-16', '08:45:00');");*/
 
 ?>

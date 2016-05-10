@@ -2,6 +2,7 @@
 
   <table class="table">
     <tr>
+      <th>Servidor</th>
       <th>Cliente</th>
       <th>Local</th>
       <th>Particao</th>
@@ -13,6 +14,7 @@
       <th>Horario da comunicacao</th>
     </tr>
     <tr ng-repeat="disco in discos">
+      <td>{{disco.id_servidor}}</td>
       <td>{{disco.nome}}</td>
       <td>{{disco.local}}</td>
       <td>{{disco.particao}}</td>
