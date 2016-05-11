@@ -4,17 +4,17 @@
     <div class="col-md-4"></div>
 
     <div class="col-md-4">
-      <div ng-controller="CrlLogin">
+      <div ng-controller="CtrlLogin">
         <form>
           <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
+            <label for="exampleInputEmail1">Email</label>
             <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" ng-model="lEmail">
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
+            <label for="exampleInputPassword1">Senha</label>
             <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" ng-model="lSenha">
           </div>
-          <button type="submit" class="btn btn-default" ng-click="logar">Submit</button>
+          <button class="btn btn-default" ng-click="logar()">Logar</button>
         </form>
       </div>
     </div>
@@ -31,13 +31,14 @@
       var dataLogin = {lEmail: $scope.lEmail, lSenha: $scope.lSenha};
 
       $http.post('/verificaLogin', dataLogin).success(function (dataLogin) {
-        alert(dataLogin);
+        window.location.replace("/");
 
       }).error(function (dataLogin) {
         alert('Erro, nao foi possivel estabelecer a comunicacao');
       });
 
     }
+
   }]);
 
 </script>

@@ -9,7 +9,7 @@ class Index extends Render
 {
     public function index()
     {
-      $this->render('index', 2);
+      $this->render('index');
     }
 
     public function login()
@@ -28,27 +28,36 @@ class Index extends Render
       $loga->setSenha($dataLogin->lSenha);
       $resLogin = $loga->logar();
 
-      if ($resLogin == 1){
-        $this->setSession();
-        $this->setCookie();
+      if ($resLogin == True){
+        $this->setSession($dataLogin);
+        $this->setCookie($dataLogin);
       } else {
-        echo "Erro, usuário ou senha são inválidos!!!";
+        echo "Erro, usuário ou senha são inválidos!!!\n";
       }
     }
 
-    private function logout()
-    {
-
-    }
-
-    private function setSession()
+    public function logout()
     {
       session_start();
+      session_destroy();
+
+      unset($_COOKIE["principal"]);
+      setcookie("principal", "logout", time()-1);
+
+      header('Location: /login');
     }
 
-    private function setCookie()
+    private function setSession($dataLogin)
     {
-        echo "VERIFICA COOKIE";
+      session_start();
+      $_SESSION['email'] = $dataLogin->lEmail;
+      $_SESSION['senha'] = $dataLogin->lSenha;
+      session_cache_expire(25 * 24 * 60);
+    }
+
+    private function setCookie($dataLogin)
+    {
+      setcookie('principal', $dataLogin->lEmail, (time() + (3 * 24 * 3600)));
     }
 
 }

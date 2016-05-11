@@ -8,24 +8,70 @@ class Init
 
     public function __construct()
     {
-        $this->initRoutes();
-        $this->run($this->getUrl());
+      $this->initPublicRoutes();
+
+      $session = $this->verificaSession();
+      $cookie = $this->verificaCookie();
+
+      if ($session == True && $cookie == True){
+        $this->initPagesRoutes();
+      } else {
+        $this->initLoginRoutes();
+      }
+
+      $procuraURL = $this->run($this->getUrl());
+
+      if ($procuraURL == 28){
+        $this->error404();
+      }
+
     }
 
-    private function initRoutes()
+    private function verificaSession()
     {
-        //PAGINAS DE ACESSO
-        $this->routes['home'] = array('route' => '/', 'controller' => 'index', 'action' => 'index');
-        $this->routes['login'] = array('route' => '/login', 'controller' => 'index', 'action' => 'login');
-        $this->routes['logout'] = array('route' => '/logout', 'controller' => 'index', 'action' => 'logout');
-        $this->routes['discos'] = array('route' => '/discos', 'controller' => 'discos', 'action' => 'mostraDiscos');
-        $this->routes['clientes'] = array('route' => '/clientes', 'controller' => 'clientes', 'action' => 'mostraClientes');
+      session_start();
+      if(isset($_SESSION['email'])) {
+          return True;
+      }
 
-        //PAGINAS DE CONTROLE
-        $this->routes['json'] = array('route' => '/json', 'controller' => 'json', 'action' => 'recebeJson');
-        $this->routes['getClientes'] = array('route' => '/getClientes', 'controller' => 'clientes', 'action' => 'getClientes');
-        $this->routes['setCliente'] = array('route' => '/setCliente', 'controller' => 'clientes', 'action' => 'setCliente');
-        $this->routes['getDiscos'] = array('route' => '/getDiscos', 'controller' => 'discos', 'action' => 'getDiscos');
+      return False;
+    }
+
+    private function verificaCookie()
+    {
+      if (isset($_COOKIE['principal'])) {
+          return True;
+      }
+
+      return False;
+    }
+
+    private function initPublicRoutes()
+    {
+      $this->routes['json'] = array('route' => '/json', 'controller' => 'json', 'action' => 'recebeJson');
+    }
+
+    private function initLoginRoutes()
+    {
+      $this->routes['login'] = array('route' => '/login', 'controller' => 'index', 'action' => 'login');
+      $this->routes['verificaLogin'] = array('route' => '/verificaLogin', 'controller' => 'index', 'action' => 'verificaLogin');
+    }
+
+    private function initPagesRoutes()
+    {
+      //PAGINAS DE ACESSO
+      $this->routes['home'] = array('route' => '/', 'controller' => 'index', 'action' => 'index');
+      $this->routes['discos'] = array('route' => '/discos', 'controller' => 'discos', 'action' => 'mostraDiscos');
+      $this->routes['clientes'] = array('route' => '/clientes', 'controller' => 'clientes', 'action' => 'mostraClientes');
+
+      //PAGINAS APOS ESTAR LOGADO
+      $this->routes['logout'] = array('route' => '/logout', 'controller' => 'index', 'action' => 'logout');
+      $this->routes['login'] = array('route' => '/login', 'controller' => 'index', 'action' => 'index');  //REDIRECIONA PARA O INDEX POIS JA ESTA LOGADO
+
+      //PAGINAS DE CONTROLE
+      $this->routes['getClientes'] = array('route' => '/getClientes', 'controller' => 'clientes', 'action' => 'getClientes');
+      $this->routes['setCliente'] = array('route' => '/setCliente', 'controller' => 'clientes', 'action' => 'setCliente');
+      $this->routes['getDiscos'] = array('route' => '/getDiscos', 'controller' => 'discos', 'action' => 'getDiscos');
 
     }
 
@@ -36,6 +82,7 @@ class Init
 
     private function run($url)
     {
+
         array_walk($this->routes, function($route) use($url){
 
             if ($url == $route['route']){
@@ -45,6 +92,11 @@ class Init
             }
 
         });
+        
+    }
 
+    private function error404()
+    {
+      echo "A PAGINA NAO FOI ENCONTRADA";
     }
 }

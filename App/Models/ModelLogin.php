@@ -21,15 +21,16 @@ class ModelLogin
   }
 
   public function setSenha($senha){
-    $senha->senha = $senha;
+    $this->senha = $senha;
   }
 
-  public function verificaCliente($o)
+  public function logar()
   {
       try {
 
-          $stmt = $this->conn->prepare("SELECT id_cliente FROM clientes WHERE id_cliente = (:idCliente)");
-          $stmt->bindValue(":idCliente", $o->idCliente);
+          $stmt = $this->conn->prepare("SELECT * FROM usuarios WHERE email = (:email) AND senha = (:senha);");
+          $stmt->bindValue(":email", base64_encode($this->email));
+          $stmt->bindValue(":senha", md5($this->senha));
           $stmt->execute();
           $row = $stmt->rowCount();
 

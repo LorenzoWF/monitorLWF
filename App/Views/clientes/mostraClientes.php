@@ -1,4 +1,4 @@
-<div  class="col-md-5">
+<div  class="col-md-3">
   <div ng-controller="CtrlLista">
 
     <i class="fa fa-filter" aria-hidden="true" style="font-size: 20px;"></i>
@@ -8,17 +8,27 @@
       <tr>
         <th>Id Cliente</th>
         <th>Nome</th>
+        <th></th>
       </tr>
       <tr ng-repeat="cliente in clientes | filter:busca">
-        <td>
-          {{cliente.id_cliente}}
-        </td>
-        <td>
-          {{cliente.nome}}
-        </td>
-
+        <td> {{cliente.id_cliente}} </td>
+        <td> {{cliente.nome}}</td>
+        <td><a class="fa fa-home" aria-hidden="true" data-toggle="modal" data-target=".bs-example-modal-lg"></a>  </td>
       </tr>
     </table>
+
+
+    <!-- Large modal -->
+    <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>-->
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          ...
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 

@@ -33,24 +33,14 @@
               </br>
               <a class="fa fa-home" aria-hidden="true"></a>
               <a class="fa fa-cog" aria-hidden="true"></a>
-              <a class="fa fa-sign-out" aria-hidden="true"></a>
+              <a class="fa fa-sign-out" aria-hidden="true" href="/logout"></a>
           </div>
 
         </div>
 
         <div class="row menu">
 
-              <div class="col-md-5">
-
-                <!--<div class="btn-group">
-                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Clientes <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a href="/clientes">Visualizar</a></li>
-                    <li><a href="/cadastrarClientes">Cadastrar</a></li>
-                  </div>
-                </ul>-->
+              <div class="col-md-8">
 
                 <a href="/clientes" class="btn btn-default">Clientes</a>
                 <a href="/discos" class="btn btn-default">Discos</a>
