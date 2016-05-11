@@ -31,6 +31,7 @@ class Index extends Render
       if ($resLogin == True){
         $this->setSession($dataLogin);
         $this->setCookie($dataLogin);
+        header('Location: /');
       } else {
         echo "Erro, usuário ou senha são inválidos!!!\n";
       }

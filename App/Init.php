@@ -5,6 +5,7 @@ namespace App;
 class Init
 {
     private $routes;
+    private $flag404 = True;
 
     public function __construct()
     {
@@ -15,21 +16,23 @@ class Init
 
       if ($session == True && $cookie == True){
         $this->initPagesRoutes();
+        echo "TA NO IF";
       } else {
         $this->initLoginRoutes();
+        echo "TA NO ELSE";
       }
 
-      $procuraURL = $this->run($this->getUrl());
+      $this->run($this->getUrl());
 
-      if ($procuraURL == 28){
+      /*if ($this->flag404 == True){
         $this->error404();
-      }
+      }*/
 
     }
 
     private function verificaSession()
     {
-      session_start();
+      //session_start();
       if(isset($_SESSION['email'])) {
           return True;
       }
@@ -89,10 +92,11 @@ class Init
                 $class = "App\\Controllers\\".ucfirst($route['controller']);
                 $controller = new $class;
                 $controller->$route['action']();
+                $this->flag404 = False;
             }
 
         });
-        
+
     }
 
     private function error404()
