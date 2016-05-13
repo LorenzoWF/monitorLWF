@@ -5,7 +5,7 @@ namespace App;
 class Init
 {
     private $routes;
-    private $flag404 = True;
+    private $flag404 = 1;
 
     public function __construct()
     {
@@ -16,23 +16,21 @@ class Init
 
       if ($session == True && $cookie == True){
         $this->initPagesRoutes();
-        echo "TA NO IF";
       } else {
         $this->initLoginRoutes();
-        echo "TA NO ELSE";
       }
 
       $this->run($this->getUrl());
 
-      /*if ($this->flag404 == True){
+      if ($this->flag404 == 1){
         $this->error404();
-      }*/
+      }
 
     }
 
     private function verificaSession()
     {
-      //session_start();
+      session_start();
       if(isset($_SESSION['email'])) {
           return True;
       }
@@ -56,7 +54,7 @@ class Init
 
     private function initLoginRoutes()
     {
-      $this->routes['login'] = array('route' => '/login', 'controller' => 'index', 'action' => 'login');
+      $this->routes['login'] = array('route' => '/', 'controller' => 'index', 'action' => 'login');
       $this->routes['verificaLogin'] = array('route' => '/verificaLogin', 'controller' => 'index', 'action' => 'verificaLogin');
     }
 
@@ -69,7 +67,6 @@ class Init
 
       //PAGINAS APOS ESTAR LOGADO
       $this->routes['logout'] = array('route' => '/logout', 'controller' => 'index', 'action' => 'logout');
-      $this->routes['login'] = array('route' => '/login', 'controller' => 'index', 'action' => 'index');  //REDIRECIONA PARA O INDEX POIS JA ESTA LOGADO
 
       //PAGINAS DE CONTROLE
       $this->routes['getClientes'] = array('route' => '/getClientes', 'controller' => 'clientes', 'action' => 'getClientes');
@@ -89,10 +86,10 @@ class Init
         array_walk($this->routes, function($route) use($url){
 
             if ($url == $route['route']){
+                $this->flag404 = 0;
                 $class = "App\\Controllers\\".ucfirst($route['controller']);
                 $controller = new $class;
                 $controller->$route['action']();
-                $this->flag404 = False;
             }
 
         });
@@ -101,6 +98,8 @@ class Init
 
     private function error404()
     {
-      echo "A PAGINA NAO FOI ENCONTRADA";
+      $class = "App\\Controllers\\Index";
+      $controller = new $class;
+      $controller->error404;
     }
 }

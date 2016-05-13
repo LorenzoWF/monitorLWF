@@ -31,7 +31,6 @@ class Index extends Render
       if ($resLogin == True){
         $this->setSession($dataLogin);
         $this->setCookie($dataLogin);
-        header('Location: /');
       } else {
         echo "Erro, usuário ou senha são inválidos!!!\n";
       }
@@ -45,7 +44,7 @@ class Index extends Render
       unset($_COOKIE["principal"]);
       setcookie("principal", "logout", time()-1);
 
-      header('Location: /login');
+      header('Location: /');
     }
 
     private function setSession($dataLogin)
@@ -59,6 +58,12 @@ class Index extends Render
     private function setCookie($dataLogin)
     {
       setcookie('principal', $dataLogin->lEmail, (time() + (3 * 24 * 3600)));
+    }
+
+    public function error404()
+    {
+      header("HTTP/1.0 404 Not Found");
+      $this->render('error404', 0);
     }
 
 }

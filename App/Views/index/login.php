@@ -14,7 +14,7 @@
             <label for="exampleInputPassword1">Senha</label>
             <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" ng-model="lSenha">
           </div>
-          <button type="submit" class="btn btn-default" ng-click="logar()">Logar</button>
+          <button class="btn btn-default" ng-click="logar()">Logar</button>
         </form>
       </div>
     </div>
@@ -31,8 +31,7 @@
       var dataLogin = {lEmail: $scope.lEmail, lSenha: $scope.lSenha};
 
       $http.post('/verificaLogin', dataLogin).success(function (dataLogin) {
-        //window.location.replace("/");
-        alert(dataLogin);
+        window.location.replace("/");
 
       }).error(function (dataLogin) {
         alert('Erro, nao foi possivel estabelecer a comunicacao');

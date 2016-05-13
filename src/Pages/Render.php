@@ -13,13 +13,20 @@ abstract class Render
         $this->view = new \stdClass();
     }
 
-    public function render($action, $layout = 1, $plugins = true)
+    public function render($action, $layout = 1)
     {
         $this->action = $action;
         if ($layout > 0){
             switch ($layout) {
+              case 3:
+                if (file_exists("../App/Views/plugins.ph'")){
+                  include_once '../App/Views/plugins.php';
+                } else {
+                   echo "NAO FOI POSSIVEL CARREGAR OS PLUGINS";
+                }
+                break;
+
               case 2:
-                //if file_exists("../App/Views/layout_2.php") ? include_once '../App/Views/layout_2.php' : echo "NAO FOI POSSIVEL CARREGAR O LAYOUT 2";
                 if (file_exists("../App/Views/layout_2.php")){
                   include_once '../App/Views/layout_2.php';
                 } else {
@@ -28,7 +35,6 @@ abstract class Render
                 break;
 
               default:
-                //if file_exists("../App/Views/layout.php") == True ? include_once '../App/Views/layout.php' : echo "NAO FOI POSSIVEL CARREGAR O LAYOUT";
                 if (file_exists("../App/Views/layout.php")){
                   include_once '../App/Views/layout.php';
                 } else {
@@ -38,11 +44,7 @@ abstract class Render
             }
 
         } else{
-            if ($plugins == true){
-              include_once '../App/Views/plugins.php';
-            } else {
-              $this->content();
-            }
+            $this->content();
         }
     }
 
